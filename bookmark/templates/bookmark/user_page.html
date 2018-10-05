@@ -1,0 +1,17 @@
+{% extends 'bookmark/base.html' %}
+{% block title %} Welcome to Django Bookmarks {% endblock %}
+{% block head %} Welcome to Django Bookmarks {% endblock %}
+
+{% block content %}
+<p>Hey {{user.username}}.Here are your saved articles</p>
+        {% if bookmarks %}
+        <ul>
+            {% for bookmark in bookmarks %}
+            <li><a href="{{ bookmark.link.url }}">
+                    {{ bookmark.title }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No bookmarks found.</p>
+        {% endif %}
+{% endblock %}
