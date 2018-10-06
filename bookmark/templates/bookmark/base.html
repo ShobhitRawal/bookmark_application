@@ -26,10 +26,12 @@
             <li class="nav-item active">
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="signup">Sign up</a>
-            </li>
-           
+            {% if user.is_authenticated %}
+            welcome {{user.username}}(<a href="logout">logout</a>)
+            {% else %}
+            <a href="login">login</a>
+            {% endif %}
+
           </ul>
         </div>
       </nav>

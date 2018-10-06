@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404
 from django.contrib.auth.models import User
 from .models import Bookmark
+from .forms import *
+
 
 def main_page(request):
     
@@ -22,6 +24,19 @@ def user_page(request,user_name):
         }
 
     return render(request,'bookmark/user_page.html',Context)
+
+def register_page(request):
+    if request.method=='POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create_user(username=form.cleaned_data['username'],password=form.cleaned_data['password1'],email=form.cleaned_data['email'])
+            context={'user':user}
+            return render(request,'bookmark/home.html',context)
+    else:
+        form = RegistrationForm()
+        context = {'form': form}
+        return render(request,'registration/register.html', context)
+
 
 
     
